@@ -1,4 +1,4 @@
-# EnhancerTracker-2.0
+# EnhancerMatcher
 An updated approach to our EnhancerTracker Tool
 
 ## Files:
