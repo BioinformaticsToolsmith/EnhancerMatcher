@@ -37,9 +37,32 @@ NOTE: These are the version the program was created on, future versions of these
    > EnhancerMatcher.py two_similar_enhancers.fa sequences.fa
 
 4. In the output folder, the output file is called Model_Output.txt
+
   Inside contains the given sequence and the percentage of similarity to the first two similar enhancers.
 
 5. If you want a CAM model generated for the input sequence run:
    > EnhancerMatcher.py two_similar_enhancers.fa sequences.fa --cam
 
+6. In the output folder, the generated CAM is called sequence_CAM.pdf
+
+   Opening it will show a heatmap for the given sequence, the dark red regions show the main area that influenced EnhancerMatcher's final decision. Please read the main paper for more details.
+
+If you wish to run EnhancerMatcher via the jupyter notebook:
+
+1. Open EnhancerMatcher.ipynb
+
+2. Locate the third cell then locate and edit the following parameters:
+
+   similar_sequences_file = directoryofinput/two_similar_enhancers.fa
+   
+   all_sequences_file = directoryofinput/sequences.fa
+
+3. If you want to a CAM model generated then locate the second cell and locate output_cam_pdf.
+
+    Set this parameter to output_cam_pdf = True
+
+4. If you want to change the output directory locate and edit output_dir with your output directory.
+
+5. Once you edit the parameters, run the entire notebook and the outputs will be generated in the output directory.
+   
 ## To Run our Tests:
