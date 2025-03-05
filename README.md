@@ -53,9 +53,9 @@ If you wish to run EnhancerMatcher via the jupyter notebook:
 
 2. Locate the third cell then locate and edit the following parameters:
 
-   similar_sequences_file = directoryofinput/two_similar_enhancers.fa
+   similar_sequences_file = directory_of_input/two_similar_enhancers.fa
    
-   all_sequences_file = directoryofinput/sequences.fa
+   all_sequences_file = directory_of_input/sequences.fa
 
 3. If you want to a CAM model generated then locate the second cell and locate output_cam_pdf.
 
