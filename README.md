@@ -38,7 +38,7 @@ NOTE: These are the version the program was created on, future versions of these
 
 4. In the output folder, the output file is called Model_Output.txt
 
-  Inside contains the given sequence and the percentage of similarity to the first two similar enhancers.
+   Inside contains the given sequence and the percentage of similarity to the first two similar enhancers.
 
 5. If you want a CAM model generated for the input sequence run:
    > EnhancerMatcher.py two_similar_enhancers.fa sequences.fa --cam
