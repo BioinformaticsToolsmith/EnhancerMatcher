@@ -57,7 +57,7 @@ If you wish to run EnhancerMatcher via the jupyter notebook:
    
    all_sequences_file = directory_of_input/sequences.fa
 
-3. If you want to a CAM model generated then locate the second cell and locate output_cam_pdf.
+3. If you want a CAM model generated then locate the second cell and locate output_cam_pdf.
 
     Set this parameter to output_cam_pdf = True
 
