@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## The purpose of this notebook is to be the final version of EnhancerTracker for publication
+# ## The purpose of this notebook is to be the final version of EnhancerMatcher for publication
 # 
 # ### This notebook will take 2 input fasta files of 400 base pair length and output their probability of being a enhancer
 # ### Optional, output will also have a Class Activation map of the triplet sequences.
