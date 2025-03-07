@@ -66,3 +66,24 @@ If you wish to run EnhancerMatcher via the jupyter notebook:
 5. Once you edit the parameters, run the entire notebook and the outputs will be generated in the output directory.
    
 ## To Run our Tests:
+1. Look inside the Test_Input folder, inside are two fasta files:
+
+   input1.fasta = Includes two similar human enhancers in fasta format
+
+   input2.fasta = Includes ten sequences in fasta format, the first five are similar enhancers while the last five are non-enhancers.
+
+2. In the main directory run EnhancerMatcher.py
+   > EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta
+
+   If you want to generate a CAM output for each sequence run:
+   > EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta --cam
+
+3. Inside the Output folder will be the results and CAM models for each given sequence.
+
+4. If you want to use the jupyter notebook then open EnhancerMatcher.ipynb
+
+5. By default the similar_sequences_file and all_sequences_file should already be set to the test cases.
+
+6. Set output_cam_pdf to true if you want to generate the CAM models.
+
+7. Run the entire notebook and the outputs will be generated in the Output folder.
