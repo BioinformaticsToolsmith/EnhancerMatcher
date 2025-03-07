@@ -1,5 +1,18 @@
 # EnhancerMatcher
-An updated approach to our EnhancerTracker Tool
+
+Copyright (C) 2025 Luis M. Solis, William L. Melendez, Shantanu Hemantrao Fuke, Sayantain Paul, Anthony B. Garza, Rolando Garcia, Mark S. Halfon, and Hani Z. Girgis
+
+Academic use: Affero General Public License version 1.
+
+Any restrictions to use for profit or non-academics: Alternative commercial license is required.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Please contact Dr. Hani Z. Girgis (hzgirgis@buffalo.edu) if you need more information.
+
+EnhancerMatcher is a computation tool for assessing the similarity among three sequences taking into account their enhancer activities. This repository contains a notebook and scripts in Python that are used for our tool. EnhancerMathcer uses a deep convolutional neural network classifier. This classifier is trained on the CATlas Project dataset (transcribed human enhancers).
+
+EnhancerMatcher is an updated approach to our EnhancerTracker Tool.
 
 ## Files:
 Models: This folder contains the network models used by EnhancerMatcher. The conv_model is used for enhancer predictions, while both cam_model and class_model are used to generate class activation maps.
