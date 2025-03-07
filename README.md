@@ -10,7 +10,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 Please contact Dr. Hani Z. Girgis (hzgirgis@buffalo.edu) if you need more information.
 
-EnhancerMatcher is a computation tool for assessing the similarity among three sequences taking into account their enhancer activities. This repository contains a notebook and scripts in Python that are used for our tool. EnhancerMathcer uses a deep convolutional neural network classifier. This classifier is trained on the CATlas Project dataset (transcribed human enhancers).
+EnhancerMatcher is a computation tool for assessing the similarity among three sequences taking into account their enhancer activities. This repository contains a notebook and scripts in Python that are used for our tool. EnhancerMatcher uses a deep convolutional neural network classifier. This classifier is trained on the CATlas Project dataset (snATAC-seq transcribed human enhancers).
 
 EnhancerMatcher is an updated approach to our EnhancerTracker Tool.
 
