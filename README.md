@@ -24,10 +24,10 @@ Test_Input: This folder contains test input files for EnhancerMatcher. These fil
 EnhancerMatcher.ipynb: This Jupyter notebook contains the code to run EnhancerMatcher. If you are comfortable using Jupyter notebooks, you can modify the parameters in the first few cells and execute the notebook to generate an output evaluation from EnhancerMatcher.
 
 ## Tool:
-EnhancerMatcher.py: This python code contains the code to run EnhancerTracker. This code is to be executed via terminal, it takes two inputs of fasta files along with a input for whether the user wants class activation maps generated.
+EnhancerMatcher.py: This python code contains the code to run EnhancerMatcher. This code is to be executed via terminal, it takes two inputs of fasta files along with a input for whether the user wants class activation maps generated.
 
 ## Requirements:
-EnhancerTracker uses several libraries:
+EnhancerMatcher uses several libraries:
 
 Python version: 3.10.13 (main, Sep 11 2023, 13:44:35) [GCC 11.2.0]
 
@@ -86,10 +86,10 @@ If you wish to run EnhancerMatcher via the jupyter notebook:
    input2.fasta = Includes ten sequences in fasta format, the first five are similar enhancers while the last five are non-enhancers.
 
 2. In the main directory run EnhancerMatcher.py
-   > EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta
+   > python EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta
 
    If you want to generate a CAM output for each sequence run:
-   > EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta --cam
+   > python EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta --cam
 
 3. Inside the Output folder will be the results and CAM models for each given sequence.
 
