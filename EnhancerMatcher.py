@@ -38,13 +38,18 @@ output_cam_pdf = False
 
 # In[ ]:
 
-
 similar_sequences_file = sys.argv[1]
 all_sequences_file     = sys.argv[2]
 
-if len(sys.argv) == 4:
-    if sys.argv[3] == '--cam':
-       output_cam_pdf = True
+# Default flags
+output_cam_pdf = False
+colorblind_friendly = False
+
+for arg in sys.argv[3:]:
+    if arg == '--cam':
+        output_cam_pdf = True
+    elif arg == '--colorblind':
+        colorblind_friendly = True
 
 
 # In[ ]:
@@ -175,7 +180,7 @@ with open(f'{output_dir}/Model_Output.txt', 'w') as file:
 # In[ ]:
 
 
-def plot_CAM_map(heatmap_interpolated_list, output_dir, name_list, save_pdf):
+def plot_CAM_map(heatmap_interpolated_list, output_dir, name_list, save_pdf, colorblind=False):
     """
     This function generates a series of 1D heatmaps (color-maps) based on the provided input data and visualizes them in a single figure.
     The heatmaps are displayed in three rows, each representing a different channel.
@@ -188,10 +193,11 @@ def plot_CAM_map(heatmap_interpolated_list, output_dir, name_list, save_pdf):
       for the individual subplots.
     - save_pdf (bool): A boolean indicating whether the figure should be saved as a PDF.
     """
-    
+
+    cmap_choice = 'cividis' if colorblind else 'jet'
     fig, axs = plt.subplots(3, 1, figsize=(8.5, 5))  # 3 rows, 1 column
     for i, heatmap_interpolated in enumerate(heatmap_interpolated_list):                  
-        image = axs[i].matshow(heatmap_interpolated.reshape(1, -1), cmap='jet', aspect='auto', vmin=0, vmax=1)
+        image = axs[i].matshow(heatmap_interpolated.reshape(1, -1), cmap=cmap_choice, aspect='auto', vmin=0, vmax=1)
         axs[i].set_yticks([])
         axs[i].xaxis.set_ticks_position('bottom') 
         axs[i].set_xlim(-0.5, len(heatmap_interpolated))
@@ -328,5 +334,5 @@ if output_cam_pdf:
             heatmap_interpolated = np.interp(new_indices, old_indices, heatmap[0, 0, :])
             heatmap_interpolated_list.append(heatmap_interpolated)
         name_list = get_sequence(batch_idx)
-        plot_CAM_map(heatmap_interpolated_list,f'{output_dir}/{name_list[2]}_CAM',name_list, True)
+        plot_CAM_map(heatmap_interpolated_list, f'{output_dir}/{name_list[2]}_CAM', name_list, True, colorblind_friendly)
 
