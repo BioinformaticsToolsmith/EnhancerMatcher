@@ -59,7 +59,13 @@ NOTE: These are the version the program was created on, future versions of these
 6. If you want a colorblind friendly CAM model generated for the input sequence run:
    > EnhancerMatcher.py two_similar_enhancers.fa sequences.fa --cam --colorblind
 
-7. In the output folder, the generated CAM is called sequence_CAM.pdf
+7. We also provide a line plot instead of a heatmap CAM model:
+   > EnhancerMatcher.py two_similar_enhancers.fa sequences.fa --lines
+
+   If you want both a heatmap and line plot you can provide both arguments:
+   > EnhancerMatcher.py two_similar_enhancers.fa sequences.fa --cam --lines
+
+8. In the output folder, the generated CAM is called sequence_CAM.pdf
 
    Opening it will show a heatmap for the given sequence, the dark red regions show the main area that influenced EnhancerMatcher's final decision. Please read the main paper for more details. Provided is a colorblind option where in this case the yellow brigher spots are main interest spots. 
 
@@ -80,10 +86,16 @@ If you wish to run EnhancerMatcher via the jupyter notebook:
 4. If you want a colorblind friendly CAM model generated then locate the second cell and locate colorblind_friendly.
 
     Set this parameter to colorblind_friendly = True
+   
+6. If you want a line plot CAM model generated then locate the second cell and locate lines_only.
 
-5. If you want to change the output directory locate and edit output_dir with your output directory.
+   Set this parameter to lines_only = True
 
-6. Once you edit the parameters, run the entire notebook and the outputs will be generated in the output directory.
+   If you want both a line plot and heatmap then set both lines_only = True and output_cam_pdf = True
+
+8. If you want to change the output directory locate and edit output_dir with your output directory.
+
+9. Once you edit the parameters, run the entire notebook and the outputs will be generated in the output directory.
    
 ## To Run our Tests:
 1. Look inside the Test_Input folder, inside are two fasta files:
@@ -100,6 +112,12 @@ If you wish to run EnhancerMatcher via the jupyter notebook:
 
    If you want to generate a colorblind friendly CAM output for each sequence run:
    > python EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta --cam --colorblind
+
+   If you want to generate a line plot CAM output for each sequence run:
+   > python EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta --lines
+
+   If you want to generate a line plot and heatmap CAM output for each sequence run:
+   > python EnhancerMatcher.py Test_Input/input1.fasta Test_Input/input2.fasta --cam --lines
 
 3. Inside the Output folder will be the results and CAM models for each given sequence.
 
