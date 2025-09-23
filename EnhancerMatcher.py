@@ -44,12 +44,15 @@ all_sequences_file     = sys.argv[2]
 # Default flags
 output_cam_pdf = False
 colorblind_friendly = False
+lines_only = False
 
 for arg in sys.argv[3:]:
     if arg == '--cam':
         output_cam_pdf = True
     elif arg == '--colorblind':
         colorblind_friendly = True
+    elif arg == '--lines':
+        lines_only = True
 
 
 # In[ ]:
@@ -226,6 +229,33 @@ def plot_CAM_map(heatmap_interpolated_list, output_dir, name_list, save_pdf, col
 
     plt.close(fig)
 
+def plot_CAM_lines_only(heatmap_interpolated_list, output_path, name_list):
+    """
+    Save a 3-panel line-only CAM figure (one line per channel).
+    output_path should be a path without extension.
+    """
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    fig, axs = plt.subplots(3, 1, figsize=(9, 5), sharex=True)
+    for i, v in enumerate(heatmap_interpolated_list):
+        axs[i].plot(np.arange(len(v)), v, linewidth=1.5)
+        axs[i].set_ylim(0, 1)
+        
+        if i == 1:
+            axs[i].set_ylabel('CAM', fontsize=11)
+        else:
+            axs[i].set_ylabel('')
+        # Titles
+        try:
+            title_txt = name_list[i].split(":", 1)[1]
+        except Exception:
+            title_txt = name_list[i]
+        axs[i].set_title(title_txt, fontsize=12)
+        axs[i].grid(alpha=0.3, linewidth=0.5)
+    axs[-1].set_xlabel('Nucleotide position', fontsize=11)
+    plt.tight_layout()
+    fig.savefig(f'{output_path}.pdf')
+    plt.close(fig)
 
 # In[ ]:
 
@@ -319,13 +349,15 @@ def get_sequence(triplet_index):
 # In[ ]:
 
 
-if output_cam_pdf:
+if output_cam_pdf or lines_only:
+    os.makedirs(output_dir, exist_ok=True)
+
     for batch_idx in range(tensor.shape[0]):
         batch = tensor[batch_idx]
         batch = np.expand_dims(batch, axis=1)
-        
+
         heatmap_list = calculate_cam(batch)
-    
+
         heatmap_interpolated_list = []
         for i, heatmap in enumerate(heatmap_list):
             heatmap = scale_array(heatmap)
@@ -333,6 +365,36 @@ if output_cam_pdf:
             new_indices = np.linspace(0, heatmap.shape[2] - 1, num=max_len)
             heatmap_interpolated = np.interp(new_indices, old_indices, heatmap[0, 0, :])
             heatmap_interpolated_list.append(heatmap_interpolated)
-        name_list = get_sequence(batch_idx)
-        plot_CAM_map(heatmap_interpolated_list, f'{output_dir}/{name_list[2]}_CAM', name_list, True, colorblind_friendly)
 
+        name_list = get_sequence(batch_idx)
+
+        # If --lines is passed alone: export only lines.
+        # If --cam is passed alone: export only heatmaps.
+        # If both are passed: export both.
+        if lines_only and not output_cam_pdf:
+            plot_CAM_lines_only(
+                heatmap_interpolated_list,
+                f'{output_dir}/{name_list[2]}_LINES',
+                name_list
+            )
+        elif output_cam_pdf and not lines_only:
+            plot_CAM_map(
+                heatmap_interpolated_list,
+                f'{output_dir}/{name_list[2]}_CAM',
+                name_list,
+                True,
+                colorblind_friendly
+            )
+        else:  # both flags present
+            plot_CAM_map(
+                heatmap_interpolated_list,
+                f'{output_dir}/{name_list[2]}_CAM',
+                name_list,
+                True,
+                colorblind_friendly
+            )
+            plot_CAM_lines_only(
+                heatmap_interpolated_list,
+                f'{output_dir}/{name_list[2]}_LINES',
+                name_list
+            )
