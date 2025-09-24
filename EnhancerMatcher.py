@@ -29,6 +29,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import os
+import re
 
 
 # In[ ]:
@@ -183,6 +184,16 @@ with open(f'{output_dir}/Model_Output.txt', 'w') as file:
 
 # In[ ]:
 
+def safe_path_noext(path_noext: str) -> str:
+    """
+    Takes a path WITHOUT extension, returns a Windows-safe path (still without extension).
+    Ensures parent directory exists. Replaces illegal filename chars with '_'.
+    """
+    dir_name, base = os.path.split(path_noext)
+    if dir_name and not os.path.exists(dir_name):
+        os.makedirs(dir_name, exist_ok=True)
+    safe_base = re.sub(r'[\\/:*?"<>|]+', '_', base)
+    return os.path.join(dir_name, safe_base) if dir_name else safe_base
 
 def plot_CAM_map(heatmap_interpolated_list, output_dir, name_list, save_pdf, colorblind=False):
     """
@@ -226,7 +237,8 @@ def plot_CAM_map(heatmap_interpolated_list, output_dir, name_list, save_pdf, col
 
     # Only save the figure if save_pdf is True
     if save_pdf:
-        plt.savefig(f'{output_dir}.pdf')  # Save the plot as a PDF
+        safe_noext = safe_path_noext(output_dir)
+        plt.savefig(f'{safe_noext}.pdf')  # Save the plot as a PDF
 
     plt.close(fig)
 
@@ -255,7 +267,8 @@ def plot_CAM_lines_only(heatmap_interpolated_list, output_path, name_list):
         axs[i].grid(alpha=0.3, linewidth=0.5)
     axs[-1].set_xlabel('Nucleotide position', fontsize=11)
     plt.tight_layout()
-    fig.savefig(f'{output_path}.pdf')
+    safe_noext = safe_path_noext(output_path)
+    fig.savefig(f'{safe_noext}.pdf')
     plt.close(fig)
 
 # In[ ]:
@@ -375,27 +388,31 @@ if output_cam_pdf or lines_only:
         if lines_only and not output_cam_pdf:
             plot_CAM_lines_only(
                 heatmap_interpolated_list,
-                f'{output_dir}/{name_list[2]}_LINES',
+                safe_path_noext(os.path.join(output_dir, f'{name_list[2]}_LINES')),
                 name_list
             )
+
+        # When saving heatmaps
         elif output_cam_pdf and not lines_only:
             plot_CAM_map(
                 heatmap_interpolated_list,
-                f'{output_dir}/{name_list[2]}_CAM',
+                safe_path_noext(os.path.join(output_dir, f'{name_list[2]}_CAM')),
                 name_list,
                 True,
                 colorblind_friendly
             )
-        else:  # both flags present
+
+        # Both
+        else:
             plot_CAM_map(
                 heatmap_interpolated_list,
-                f'{output_dir}/{name_list[2]}_CAM',
+                safe_path_noext(os.path.join(output_dir, f'{name_list[2]}_CAM')),
                 name_list,
                 True,
                 colorblind_friendly
             )
             plot_CAM_lines_only(
                 heatmap_interpolated_list,
-                f'{output_dir}/{name_list[2]}_LINES',
+                safe_path_noext(os.path.join(output_dir, f'{name_list[2]}_LINES')),
                 name_list
-            )
+    )
